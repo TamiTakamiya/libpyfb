@@ -40,14 +40,17 @@ class Framebuffer():
 		# Now user in video group
 		# Get screen info
 
+		# Obtain frame buffer number
+		fbnum = fbpath.split("/")[-1]
+
 		# Get screen size
-		_ = open("/sys/class/graphics/fb0/virtual_size", "r")
+		_ = open(f"/sys/class/graphics/{fbnum}/virtual_size", "r")
 		__ = _.read()
 		self.screenx,self.screeny = [int(i) for i in __.split(",")]
 		_.close()
 
 		# Get bit per pixel
-		_ = open("/sys/class/graphics/fb0/bits_per_pixel", "r")
+		_ = open(f"/sys/class/graphics/{fbnum}/bits_per_pixel", "r")
 		self.bpp = int(_.read()[:2])
 		_.close()
 
